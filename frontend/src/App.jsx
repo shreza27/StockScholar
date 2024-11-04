@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import "./App.css";
 import Profile from "./pages/Profile";
 import Portfolio from "./pages/Portfolio";
+import Chat from "./pages/Chat";
 function App() {
   return (
     <Routes>
@@ -14,7 +15,7 @@ function App() {
         <Route index element={<Dashboard />} />
         <Route path="portfolio" element={<Portfolio />} />
         <Route path="market" element={<div>Market Page</div>} />
-        <Route path="budget" element={<div>Budget Page</div>} />
+        <Route path="chat" element={<Chat />} />
         <Route path="learn" element={<div>Learn Page</div>} />
         <Route path="profile" element={<Profile />} />
       </Route>

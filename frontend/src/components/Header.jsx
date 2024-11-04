@@ -25,8 +25,8 @@ export default function Header() {
               </Link>
             </li>
             <li>
-              <Link to="/budget" className="nav-link px-3 text-white">
-                Budget
+              <Link to="/chat" className="nav-link px-3 text-white">
+                Chat
               </Link>
             </li>
             <li>

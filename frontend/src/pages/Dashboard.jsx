@@ -1,16 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "../css/Dashboard.css";
 import Card from "../components/Card";
 import image1 from "../assets/3d-rendering-financial-neon-bull.jpg";
 import image2 from "../assets/stock-trading-workplace-background.jpg";
 
-const trendingStocks = [
-  { name: "AAPL", price: "$150.00" },
-  { name: "GOOGL", price: "$2800.00" },
-  { name: "AMZN", price: "$3500.00" },
-  { name: "MSFT", price: "$300.00" },
-  { name: "TSLA", price: "$700.00" },
+const topStocks = [
+  "AAPL",
+  "MSFT",
+  "GOOGL",
+  "AMZN",
+  "TSLA",
+  "BRK.B",
+  "NVDA",
+  "JPM",
+  "JNJ",
+  "UNH",
 ];
+
+const API_KEY = ""; // "csg97d9r01qo4cffkokgcsg97d9r01qo4cffkol0";
+const BASE_URL = "https://finnhub.io/api/v1";
 
 const trendingNews = [
   {
@@ -28,10 +37,40 @@ const trendingNews = [
 ];
 
 export default function Dashboard() {
+  const [stockData, setStockData] = useState([]);
+  const [error, setError] = useState(null);
+
+  const fetchStockQuotes = async () => {
+    try {
+      const responses = await Promise.all(
+        topStocks.map((symbol) =>
+          axios.get(`${BASE_URL}/quote`, {
+            params: {
+              symbol: symbol,
+              token: API_KEY,
+            },
+          })
+        )
+      );
+      const data = responses.map((response, index) => ({
+        symbol: topStocks[index],
+        ...response.data,
+      }));
+      setStockData(data);
+    } catch (err) {
+      setError("Error fetching stock quotes");
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchStockQuotes();
+  }, []);
+
   return (
     <>
       <div className="dashboard1">
-        <h1 class="quote">
+        <h1 className="quote">
           "The stock market is filled with individuals who know the price of
           everything but the value of nothing." – Philip Fisher
         </h1>
@@ -71,50 +110,36 @@ export default function Dashboard() {
         </div>
       </div>
       <div className="dashboard">
-        <div className="d1">
-          <h3>Top Trending Stocks</h3>
-          {trendingStocks.map((stock) => (
-            <Card key={stock.name} title={stock.name} value={stock.price} />
-          ))}
-        </div>
         <div className="d2">
           <h3>Top Stocks</h3>
           <table className="table table-striped table-hover">
             <thead>
               <tr>
                 <th>Stock Symbol</th>
-                <th>Company Name</th>
                 <th>Current Price</th>
-                <th>Change</th>
-                <th>Percentage Change</th>
-                <th>Market Cap</th>
+                <th>High Price of the Day</th>
+                <th>Low Price of the Day</th>
+                <th>Open Price of the Day</th>
+                <th>Previous Close Price</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>AAPL</td>
-                <td>Apple Inc.</td>
-                <td>$150.00</td>
-                <td>$2.00</td>
-                <td>1.35%</td>
-                <td>$2.5 Trillion</td>
-              </tr>
-              <tr>
-                <td>GOOGL</td>
-                <td>Alphabet Inc.</td>
-                <td>$2800.00</td>
-                <td>$10.00</td>
-                <td>0.36%</td>
-                <td>$1.9 Trillion</td>
-              </tr>
-              <tr>
-                <td>AMZN</td>
-                <td>Amazon.com Inc.</td>
-                <td>$3500.00</td>
-                <td>$15.00</td>
-                <td>0.43%</td>
-                <td>$1.75 Trillion</td>
-              </tr>
+              {stockData.length > 0 ? (
+                stockData.map((stock, index) => (
+                  <tr key={index}>
+                    <td>{stock.symbol}</td>
+                    <td>${stock.c}</td>
+                    <td>${stock.h}</td>
+                    <td>${stock.l}</td>
+                    <td>${stock.o}</td>
+                    <td>${stock.pc}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="6">{error ? error : "Loading..."}</td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
