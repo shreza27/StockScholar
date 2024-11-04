@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 
 export default function Chat() {
-  const APIKEY = ""; //AIzaSyCwhhee3P7_80wpMC9Al0Dhw8PZIZz4TQk";
+  const APIKEY = ""; //process.env.REACT_APP_GAPI_KEY;
   const [chatHistory, setChatHistory] = useState([]);
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
