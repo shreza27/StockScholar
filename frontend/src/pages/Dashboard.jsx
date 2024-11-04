@@ -18,7 +18,8 @@ const topStocks = [
   "UNH",
 ];
 
-const API_KEY = ""; //process.env.REACT_APP_SAPI_KEY;
+const API_KEY = ""; //import.meta.env.VITE_SAPI_KEY;
+
 const BASE_URL = "https://finnhub.io/api/v1";
 
 const trendingNews = [
