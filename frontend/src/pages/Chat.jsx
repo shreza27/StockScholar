@@ -1,14 +1,13 @@
 import axios from "axios";
 import React, { useState, useRef, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
+import "../css/Chat.css"; // Import CSS for styling
 
 export default function Chat() {
   const APIKEY = ""; //import.meta.env.VITE_GAPI_KEY;
   const [chatHistory, setChatHistory] = useState([]);
   const [question, setQuestion] = useState("");
-  const [answer, setAnswer] = useState("");
   const [generatingAnswer, setGeneratingAnswer] = useState(false);
-
   const chatContainerRef = useRef(null);
 
   useEffect(() => {
@@ -16,7 +15,7 @@ export default function Chat() {
       chatContainerRef.current.scrollTop =
         chatContainerRef.current.scrollHeight;
     }
-  }, [chatHistory, generatingAnswer]);
+  }, [chatHistory]);
 
   async function generateAnswer(e) {
     e.preventDefault();
@@ -34,7 +33,7 @@ export default function Chat() {
         url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${APIKEY}`,
         method: "post",
         data: {
-          contents: [{ parts: [{ text: question }] }],
+          contents: [{ parts: [{ text: currentQuestion }] }],
         },
       });
 
@@ -44,122 +43,100 @@ export default function Chat() {
         ...prev,
         { type: "answer", content: aiResponse },
       ]);
-      setAnswer(aiResponse);
     } catch (error) {
       console.log(error);
-      setAnswer("Sorry - Something went wrong. Please try again!");
+      setChatHistory((prev) => [
+        ...prev,
+        {
+          type: "answer",
+          content: "Sorry - Something went wrong. Please try again!",
+        },
+      ]);
     }
     setGeneratingAnswer(false);
   }
-  return (
-    <div className="fixed inset-0 bg-gradient-to-r from-blue-50 to-blue-100 pt-16">
-      <div className="h-full max-w-4xl mx-auto flex flex-col p-3">
-        <header className="text-center py-4">
-          <h1 className="text-4xl font-bold transition-colors gradient-text">
-            Chat AI
-          </h1>
-        </header>
 
-        {/* Scrollable Chat Container - Updated className */}
-        <div
-          ref={chatContainerRef}
-          className="flex-1 overflow-y-auto mb-4 rounded-lg bg-white shadow-lg p-4 hide-scrollbar"
-        >
-          {chatHistory.length === 0 ? (
-            <div className="h-full flex flex-col items-center justify-center text-center p-6">
-              <div className="bg-blue-50 rounded-xl p-8 max-w-2xl">
-                <h2 className="text-2xl font-bold text-blue-600 mb-4">
-                  Welcome to Chat AI! 👋
-                </h2>
-                <p className="text-gray-600 mb-4">
-                  I'm here to help you with anything you'd like to know. You can
-                  ask me about:
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
-                  <div className="bg-white p-4 rounded-lg shadow-sm">
-                    <span className="text-blue-500">💡</span> General knowledge
-                  </div>
-                  <div className="bg-white p-4 rounded-lg shadow-sm">
-                    <span className="text-blue-500">🔧</span> Technical
-                    questions
-                  </div>
-                  <div className="bg-white p-4 rounded-lg shadow-sm">
-                    <span className="text-blue-500">📝</span> Writing assistance
-                  </div>
-                  <div className="bg-white p-4 rounded-lg shadow-sm">
-                    <span className="text-blue-500">🤔</span> Problem solving
-                  </div>
+  return (
+    <div className="chat-container">
+      <div className="chat-history scrollbar-thin" ref={chatContainerRef}>
+        {chatHistory.length === 0 ? (
+          <div className="h-full flex flex-col items-center justify-center text-center p-6">
+            <div className="bg-gray-800 rounded-xl p-8 max-w-2xl">
+              <h2 className="text-2xl font-bold text-yellow-400 mb-4">
+                Welcome to Stock Bot! 👋
+              </h2>
+              <p className="text-gray-300 mb-4">
+                I'm here to help you with anything you'd like to know. You can
+                ask me about:
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+                <div className="bg-gray-700 p-4 rounded-lg shadow-sm">
+                  <span className="text-yellow-400">📈</span> Stock Prices
                 </div>
-                <p className="text-gray-500 mt-6 text-sm">
-                  Just type your question below and press Enter or click Send!
-                </p>
+                <div className="bg-gray-700 p-4 rounded-lg shadow-sm">
+                  <span className="text-yellow-400">💹</span> Market Trends
+                </div>
+                <div className="bg-gray-700 p-4 rounded-lg shadow-sm">
+                  <span className="text-yellow-400">📊</span> Financial News
+                </div>
+                <div className="bg-gray-700 p-4 rounded-lg shadow-sm">
+                  <span className="text-yellow-400">💰</span> Investment Tips
+                </div>
               </div>
+              <p className="text-gray-400 mt-6 text-sm">
+                Just type your question below and press Enter or click Send!
+              </p>
             </div>
-          ) : (
-            <>
-              {chatHistory.map((chat, index) => (
+          </div>
+        ) : (
+          <>
+            {chatHistory.map((chat, index) => (
+              <div
+                key={index}
+                className={`mb-4 ${
+                  chat.type === "question" ? "text-right" : "text-left"
+                }`}
+              >
                 <div
-                  key={index}
-                  className={`mb-4 ${
-                    chat.type === "question" ? "text-right" : "text-left"
+                  className={`inline-block max-w-[80%] p-3 rounded-lg overflow-auto hide-scrollbar ${
+                    chat.type === "question"
+                      ? "bg-blue-600 text-white rounded-br-none"
+                      : "bg-gray-700 text-gray-300 rounded-bl-none"
                   }`}
                 >
-                  <div
-                    className={`inline-block max-w-[80%] p-3 rounded-lg overflow-auto hide-scrollbar ${
-                      chat.type === "question"
-                        ? "bg-blue-500 text-white rounded-br-none"
-                        : "bg-gray-100 text-gray-800 rounded-bl-none"
-                    }`}
-                  >
-                    <ReactMarkdown className="overflow-auto hide-scrollbar">
-                      {chat.content}
-                    </ReactMarkdown>
-                  </div>
+                  <ReactMarkdown className="overflow-auto hide-scrollbar">
+                    {chat.content}
+                  </ReactMarkdown>
                 </div>
-              ))}
-            </>
-          )}
-          {generatingAnswer && (
-            <div className="text-left">
-              <div className="inline-block bg-gray-100 p-3 rounded-lg animate-pulse">
-                Thinking...
               </div>
+            ))}
+          </>
+        )}
+        {generatingAnswer && (
+          <div className="text-left">
+            <div className="inline-block bg-gray-700 p-3 rounded-lg animate-pulse">
+              Thinking...
             </div>
-          )}
-        </div>
-
-        {/* Fixed Input Form */}
-        <form
-          onSubmit={generateAnswer}
-          className="bg-white rounded-lg shadow-lg p-4"
-        >
-          <div className="flex gap-2">
-            <textarea
-              required
-              className="flex-1 border border-gray-300 rounded p-3 focus:border-blue-400 focus:ring-1 focus:ring-blue-400 resize-none"
-              value={question}
-              onChange={(e) => setQuestion(e.target.value)}
-              placeholder="Ask anything..."
-              rows="2"
-              onKeyDown={(e) => {
-                if (e.key === "Enter" && !e.shiftKey) {
-                  e.preventDefault();
-                  generateAnswer(e);
-                }
-              }}
-            ></textarea>
-            <button
-              type="submit"
-              className={`px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors ${
-                generatingAnswer ? "opacity-50 cursor-not-allowed" : ""
-              }`}
-              disabled={generatingAnswer}
-            >
-              Send
-            </button>
           </div>
-        </form>
+        )}
       </div>
+      <form className="chat-form" onSubmit={generateAnswer}>
+        <textarea
+          value={question}
+          onChange={(e) => setQuestion(e.target.value)}
+          placeholder="Type your question here..."
+          className="bg-gray-800 text-white p-2 rounded-lg"
+        />
+        <button
+          type="submit"
+          disabled={generatingAnswer}
+          className={`text-white bg-gradient-to-r from-yellow-400 to-orange-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ${
+            generatingAnswer ? "opacity-50 cursor-not-allowed" : ""
+          }`}
+        >
+          {generatingAnswer ? "Generating..." : "Send"}
+        </button>
+      </form>
     </div>
   );
 }
