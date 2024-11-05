@@ -1,4 +1,3 @@
-/* Custom Scrollbar Styles */
 .scrollbar-thin::-webkit-scrollbar {
     width: 6px;
 }
@@ -9,27 +8,22 @@
 
 .scrollbar-thin::-webkit-scrollbar-thumb {
     background-color: #93C5FD;
-    /* Light blue color */
     border-radius: 3px;
 }
 
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
     background-color: #60A5FA;
-    /* Darker blue on hover */
 }
 
 .hide-scrollbar::-webkit-scrollbar {
     display: none;
-    /* Hide the scrollbar */
 }
 
 .hide-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
-    /* For Firefox */
 }
 
-/* Additional styles for chat component */
 .chat-container {
     display: grid;
     grid-template-rows: 1fr auto;
@@ -44,25 +38,20 @@
 
 .chat-history {
     overflow-y: auto;
-    /* Enable vertical scrolling */
     background-color: black;
     color: white;
     padding: 10px;
-    /* Apply scrollbar styles */
     scrollbar-width: thin;
-    /* For Firefox */
 }
 
 .chat-history .question {
     margin: 10px 0;
     color: #b8a14f;
-    /* Gold for questions */
 }
 
 .chat-history .answer {
     margin: 10px 0;
     color: #8f6f3f;
-    /* Darker gold for answers */
 }
 
 .loading {
@@ -73,9 +62,7 @@
 .chat-form {
     display: grid;
     grid-template-columns: 1fr auto;
-    /* Two columns: textarea and button */
     padding: 3px;
-    /* Padding around the form */
     color: transparent;
     background-image: linear-gradient(45deg, #b8a14f, #8f6f3f, #706040);
     background-clip: text;
@@ -85,13 +72,10 @@
 
 .chat-form textarea {
     width: 100%;
-    /* Full width to match the chat history */
     padding: 3px;
     border: none;
     border-radius: 4px;
-    /* Optional: rounded corners for the textarea */
     resize: none;
-    /* Prevent resizing */
     background-color: black;
     color: white;
 }
@@ -100,19 +84,11 @@
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
-    /* Optional: rounded corners for the button */
     cursor: pointer;
     margin-left: 10px;
     background-color: #8f6f3f;
-    ;
-    /* Space between textarea and button */
 }
 
 .chat-form button:disabled {
     background-color: #ccc;
-    /* Style for disabled button */
-}
-
-.bg-gradient-custom {
-    background-color: #8f6f3f;
 }

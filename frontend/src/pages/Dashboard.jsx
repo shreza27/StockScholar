@@ -19,26 +19,13 @@ const topStocks = [
 ];
 
 const API_KEY = ""; //import.meta.env.VITE_SAPI_KEY;
-
 const BASE_URL = "https://finnhub.io/api/v1";
-
-const trendingNews = [
-  {
-    title: "Stock Market Hits Record High",
-    content: "Details about the stock market...",
-  },
-  {
-    title: "Tech Stocks Surge",
-    content: "Tech stocks are leading the market growth...",
-  },
-  {
-    title: "Investment Strategies for 2024",
-    content: "Explore the best strategies...",
-  },
-];
+const NEWS_API_KEY = ""; // import.meta.env.VITE_NAPI_KEY;
+const NEWS_API_URL = `https://newsdata.io/api/1/news?apikey=${NEWS_API_KEY}&q=stock&language=en&category=business`;
 
 export default function Dashboard() {
   const [stockData, setStockData] = useState([]);
+  const [newsData, setNewsData] = useState([]);
   const [error, setError] = useState(null);
 
   const fetchStockQuotes = async () => {
@@ -64,8 +51,19 @@ export default function Dashboard() {
     }
   };
 
+  const fetchNews = async () => {
+    try {
+      const response = await axios.get(NEWS_API_URL);
+      setNewsData(response.data.results);
+    } catch (err) {
+      setError("Error fetching news data");
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
     fetchStockQuotes();
+    fetchNews();
   }, []);
 
   return (
@@ -146,8 +144,13 @@ export default function Dashboard() {
         </div>
         <div className="d3">
           <h3>Top Trending News</h3>
-          {trendingNews.map((news, index) => (
-            <Card key={index} title={news.title} value={news.content} />
+          {newsData.slice(0, 5).map((news, index) => (
+            <Card
+              key={index}
+              title={news.title}
+              link={news.link}
+              image={news.image_url}
+            />
           ))}
         </div>
       </div>
