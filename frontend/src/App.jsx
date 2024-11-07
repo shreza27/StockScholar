@@ -8,6 +8,7 @@ import "./App.css";
 import Profile from "./pages/Profile";
 import Portfolio from "./pages/Portfolio";
 import Chat from "./pages/Chat";
+import Learn from "./pages/Learn";
 function App() {
   return (
     <Routes>
@@ -16,7 +17,7 @@ function App() {
         <Route path="portfolio" element={<Portfolio />} />
         <Route path="market" element={<div>Market Page</div>} />
         <Route path="chat" element={<Chat />} />
-        <Route path="learn" element={<div>Learn Page</div>} />
+        <Route path="learn" element={<Learn />} />
         <Route path="profile" element={<Profile />} />
       </Route>
       <Route path="/login" element={<Login />} />
