@@ -1,159 +1,107 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
+import StockChart from "../components/StockChart";
+import Clock from "../components/Clock";
 import "../css/Dashboard.css";
-import Card from "../components/Card";
-import image1 from "../assets/3d-rendering-financial-neon-bull.jpg";
-import image2 from "../assets/stock-trading-workplace-background.jpg";
 
-const topStocks = [
-  "AAPL",
-  "MSFT",
-  "GOOGL",
-  "AMZN",
-  "TSLA",
-  "BRK.B",
-  "NVDA",
-  "JPM",
-  "JNJ",
-  "UNH",
-];
-
-const API_KEY = ""; //import.meta.env.VITE_SAPI_KEY;
-const BASE_URL = "https://finnhub.io/api/v1";
-const NEWS_API_KEY = ""; // import.meta.env.VITE_NAPI_KEY;
-const NEWS_API_URL = `https://newsdata.io/api/1/news?apikey=${NEWS_API_KEY}&q=stock&language=en&category=business`;
+const Stock_key = ""; //import.meta.env.VITE_DASHSTOCKNAPI_KEY;
 
 export default function Dashboard() {
-  const [stockData, setStockData] = useState([]);
-  const [newsData, setNewsData] = useState([]);
+  const userName = "John Doe";
+  const [symbol, setSymbol] = useState("");
+  const [stockData, setStockData] = useState(null);
   const [error, setError] = useState(null);
 
-  const fetchStockQuotes = async () => {
+  const handleSymbolChange = (e) => {
+    setSymbol(e.target.value);
+  };
+
+  const fetchStockData = async () => {
+    if (!symbol) return;
     try {
-      const responses = await Promise.all(
-        topStocks.map((symbol) =>
-          axios.get(`${BASE_URL}/quote`, {
-            params: {
-              symbol: symbol,
-              token: API_KEY,
-            },
-          })
-        )
+      const response = await fetch(
+        `https://api.twelvedata.com/time_series?symbol=${symbol}&interval=1day&outputsize=7&apikey=${Stock_key}`
       );
-      const data = responses.map((response, index) => ({
-        symbol: topStocks[index],
-        ...response.data,
-      }));
-      setStockData(data);
+      const data = await response.json();
+      if (data.values) {
+        setStockData(data);
+        setError(null);
+      } else {
+        setError("Invalid symbol or data not available.");
+      }
     } catch (err) {
-      setError("Error fetching stock quotes");
-      console.error(err);
+      setError("Error fetching data.");
     }
   };
-
-  const fetchNews = async () => {
-    try {
-      const response = await axios.get(NEWS_API_URL);
-      setNewsData(response.data.results);
-    } catch (err) {
-      setError("Error fetching news data");
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    fetchStockQuotes();
-    fetchNews();
-  }, []);
 
   return (
-    <>
-      <div className="dashboard1">
-        <h1 className="quote">
-          "The stock market is filled with individuals who know the price of
-          everything but the value of nothing." – Philip Fisher
-        </h1>
-        <div id="carouselExampleFade" className="carousel slide carousel-fade">
-          <div className="carousel-inner">
-            <div className="carousel-item active">
-              <img src={image1} className="d-block w-100" alt="Slide 1" />
-            </div>
-            <div className="carousel-item">
-              <img src={image2} className="d-block w-100" alt="Slide 2" />
-            </div>
-          </div>
-          <button
-            className="carousel-control-prev"
-            type="button"
-            data-bs-target="#carouselExampleFade"
-            data-bs-slide="prev"
-          >
-            <span
-              className="carousel-control-prev-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="visually-hidden">Previous</span>
-          </button>
-          <button
-            className="carousel-control-next"
-            type="button"
-            data-bs-target="#carouselExampleFade"
-            data-bs-slide="next"
-          >
-            <span
-              className="carousel-control-next-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="visually-hidden">Next</span>
-          </button>
+    <div className="dashboard">
+      <div className="timedisplay">
+        <div className="welcome-message">
+          <h1>Welcome back, {userName}!</h1>
+          <p>
+            Here’s a quick overview of your stock portfolio performance today.
+          </p>
+          <p>
+            The stock market is seeing positive growth today. Keep an eye on key
+            stocks.
+          </p>
+        </div>
+        <div className="chartdisplay">
+          <StockChart stockData={stockData} />
+        </div>
+        <div className="clock1">
+          <h2 className="text-white">Major Market Time Zones</h2>
+          <Clock />
         </div>
       </div>
-      <div className="dashboard">
-        <div className="d2">
-          <h3>Top Stocks</h3>
-          <table className="table table-striped table-hover">
-            <thead>
+
+      <div className="watchlist">
+        <h2 className="watchlist-heading text-white">Watchlist</h2>
+
+        <div className="add-stock text-white">
+          <input
+            type="text"
+            placeholder="Enter stock symbol"
+            className="watchlist-input bg-black text-white"
+            value={symbol}
+            onChange={handleSymbolChange}
+          />
+          <button className="add-button" onClick={fetchStockData}>
+            Add
+          </button>
+        </div>
+
+        {error && <p className="text-red">{error}</p>}
+
+        <table className="watchlist-table">
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              <th>Open</th>
+              <th>High</th>
+              <th>Low</th>
+              <th>Close</th>
+              <th>Volume</th>
+            </tr>
+          </thead>
+          <tbody>
+            {stockData && stockData.values && stockData.values.length > 0 ? (
               <tr>
-                <th>Stock Symbol</th>
-                <th>Current Price</th>
-                <th>High Price of the Day</th>
-                <th>Low Price of the Day</th>
-                <th>Open Price of the Day</th>
-                <th>Previous Close Price</th>
+                <td>{stockData.meta.symbol}</td>
+                <td>{stockData.values[0].open}</td>
+                <td>{stockData.values[0].high}</td>
+                <td>{stockData.values[0].low}</td>
+                <td>{stockData.values[0].close}</td>
+                <td>{stockData.values[0].volume || "N/A"}</td>
               </tr>
-            </thead>
-            <tbody>
-              {stockData.length > 0 ? (
-                stockData.map((stock, index) => (
-                  <tr key={index}>
-                    <td>{stock.symbol}</td>
-                    <td>${stock.c}</td>
-                    <td>${stock.h}</td>
-                    <td>${stock.l}</td>
-                    <td>${stock.o}</td>
-                    <td>${stock.pc}</td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="6">{error ? error : "Loading..."}</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-        <div className="d3">
-          <h3>Top Trending News</h3>
-          {newsData.slice(0, 5).map((news, index) => (
-            <Card
-              key={index}
-              title={news.title}
-              link={news.link}
-              image={news.image_url}
-            />
-          ))}
-        </div>
+            ) : (
+              <tr>
+                <td colSpan="7">No data available for this symbol</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
-    </>
+    </div>
   );
 }

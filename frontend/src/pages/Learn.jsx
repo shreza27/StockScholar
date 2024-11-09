@@ -26,22 +26,38 @@ export default function Learn() {
     {
       title: "Stock Market Basics for Beginners",
       link: "https://www.investopedia.com/articles/basics/06/invest1000.asp",
+      thumbnail:
+        "https://www.investopedia.com/thmb/URyVBcDIQxkKB2e6AVRTNoqiRZA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/stockmarket.asp-d2f34bb1e91444069bc6e9b24cfdf6e8.jpg",
     },
     {
-      title: "How Does the Stock Market Work?",
-      link: "https://www.nerdwallet.com/article/investing/how-the-stock-market-works",
+      title: "Stock market basics: 9 tips for beginners",
+      link: "https://www.bankrate.com/investing/stock-market-basics-for-beginners/",
+      thumbnail:
+        "https://www.bankrate.com/brp/2023/10/16124824/Investments-Stock-market-basics_9-tips-for-beginners.jpg?auto=webp&optimize=high&crop=16:9&width=912",
     },
     {
-      title: "A Beginner's Guide to the Stock Market",
-      link: "https://www.thebalance.com/stock-market-basics-3306245",
+      title: "Stock Market Basics: What Beginner Investors Should Know",
+      link: "https://www.nerdwallet.com/article/investing/stock-market-basics-everything-beginner-investors-know",
+      thumbnail:
+        "https://www.nerdwallet.com/tachyon/2017/06/GettyImages-653901746.jpg?resize=1920%2C1152",
     },
     {
-      title: "Understanding Stock Market Indices",
-      link: "https://www.fool.com/investing/how-to-invest/stock-market-basics/",
+      title: "Stock Market Basics",
+      link: "https://groww.in/p/stock-market-basics",
+      thumbnail:
+        "https://wp-asset.groww.in/wp-content/uploads/2020/06/02185304/for-blog_2june_little-money-03.jpg",
     },
     {
-      title: "10 Tips for Beginning Investors",
-      link: "https://www.bankrate.com/investing/tips-for-beginning-investors/",
+      title: "Best Share Market Tips For Beginners",
+      link: "https://www.sharekhan.com/financial-blog/blogs/best-share-market-tips-for-beginners",
+      thumbnail:
+        "https://www.sharekhan.com/MediaGalary/image/What-is-Online-Trading_H-202403042042557895107.png",
+    },
+    {
+      title: "10 Great Secrets: How to Win the Stock Market Game?",
+      link: "https://www.holisticinvestment.in/7-secrets-of-winning/",
+      thumbnail:
+        "https://www.holisticinvestment.in/wp-content/uploads/2015/07/10-Great-Secrets-How-to-Win-the-Stock-Market-Game-1.png",
     },
   ];
 
@@ -82,6 +98,11 @@ export default function Learn() {
             className="article-card-link"
           >
             <div className="article-card">
+              <img
+                src={article.thumbnail}
+                alt={article.title}
+                className="article-thumbnail"
+              />
               <h3>{article.title}</h3>
             </div>
           </a>

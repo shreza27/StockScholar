@@ -9,13 +9,14 @@ import Profile from "./pages/Profile";
 import Portfolio from "./pages/Portfolio";
 import Chat from "./pages/Chat";
 import Learn from "./pages/Learn";
+import Market from "./pages/Market";
 function App() {
   return (
     <Routes>
       <Route path="/" element={<MainPage />}>
         <Route index element={<Dashboard />} />
         <Route path="portfolio" element={<Portfolio />} />
-        <Route path="market" element={<div>Market Page</div>} />
+        <Route path="market" element={<Market />} />
         <Route path="chat" element={<Chat />} />
         <Route path="learn" element={<Learn />} />
         <Route path="profile" element={<Profile />} />

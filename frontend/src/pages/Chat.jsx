@@ -4,7 +4,7 @@ import ReactMarkdown from "react-markdown";
 import "../css/Chat.css";
 
 export default function Chat() {
-  const APIKEY = ""; //import.meta.env.VITE_GAPI_KEY;
+  const APIKEY = ""; //import.meta.env.VITE_GEMINIAPI_KEY;
   const [chatHistory, setChatHistory] = useState([]);
   const [question, setQuestion] = useState("");
   const [generatingAnswer, setGeneratingAnswer] = useState(false);
@@ -61,29 +61,29 @@ export default function Chat() {
       <div className="chat-history scrollbar-thin" ref={chatContainerRef}>
         {chatHistory.length === 0 ? (
           <div className="h-full flex flex-col items-center justify-center text-center p-6">
-            <div className="bg-gray-800 rounded-xl p-8 max-w-2xl">
-              <h2 className="text-2xl font-bold text-yellow-400 mb-4">
+            <div className="bg-gray-1000 rounded-xl p-8 max-w-2xl">
+              <h2 className="welcomechat text-2xl font-bold mb-4">
                 Welcome to Stock Bot! 👋
               </h2>
               <p className="text-gray-300 mb-4">
                 I'm here to help you with anything you'd like to know. You can
                 ask me about:
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
-                <div className="bg-gray-700 p-4 rounded-lg shadow-sm">
+              <div className="chat1 grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+                <div className="chatcard p-4">
                   <span className="text-yellow-400">📈</span> Stock Prices
                 </div>
-                <div className="bg-gray-700 p-4 rounded-lg shadow-sm">
+                <div className="chatcard">
                   <span className="text-yellow-400">💹</span> Market Trends
                 </div>
-                <div className="bg-gray-700 p-4 rounded-lg shadow-sm">
+                <div className="chatcard">
                   <span className="text-yellow-400">📊</span> Financial News
                 </div>
-                <div className="bg-gray-700 p-4 rounded-lg shadow-sm">
+                <div className="chatcard">
                   <span className="text-yellow-400">💰</span> Investment Tips
                 </div>
               </div>
-              <p className="text-gray-400 mt-6 text-sm">
+              <p className="text-gray-400 mt-6 text-md">
                 Just type your question below and press Enter or click Send!
               </p>
             </div>

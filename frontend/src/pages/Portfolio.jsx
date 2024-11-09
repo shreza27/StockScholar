@@ -53,11 +53,11 @@ export default function Portfolio() {
                   <img src="" alt="" />
                   <span>BNB</span>
                 </td>
-                <td>$4,589.70</td>
+                <td>$45,897</td>
                 <td className="price-change negative">-1.34%</td>
                 <td>$872,043.00</td>
-                <td>$4,270.09</td>
-                <td className="profit">$52,384.00</td>
+                <td>$42,709</td>
+                <td className="profit">$60,572.00</td>
                 <td>
                   <button className="add-asset">+</button>
                 </td>

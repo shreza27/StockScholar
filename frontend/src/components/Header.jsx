@@ -45,7 +45,7 @@ export default function Header() {
               aria-expanded="false"
             >
               <img
-                src="https://github.com/mdo.png"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjSyBbjTDt-hfhjuJsMP82aeeML1nZ7a0qeQ&s"
                 alt="mdo"
                 width="32"
                 height="32"
