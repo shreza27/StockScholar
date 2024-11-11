@@ -1,14 +1,14 @@
 import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../css/LoginSignup.css";
-
+import axios from "axios";
 export default function Login() {
-  const emailOrPhoneRef = useRef(null);
+  const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const validateEmailOrPhone = (input) => {
+  const validateEmail = (input) => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phonePattern = /^[0-9]{10}$/;
     return emailPattern.test(input) || phonePattern.test(input);
@@ -19,19 +19,19 @@ export default function Login() {
     return password.length >= minLength;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const emailOrPhone = emailOrPhoneRef.current.value.trim();
+    const email = emailRef.current.value.trim();
     const password = passwordRef.current.value.trim();
 
-    if (!emailOrPhone || !password) {
+    if (!email || !password) {
       setError("Both fields are required.");
       return;
     }
 
-    if (!validateEmailOrPhone(emailOrPhone)) {
-      setError("Enter a valid email or 10-digit phone number.");
+    if (!validateEmail(email)) {
+      setError("Enter a valid email");
       return;
     }
 
@@ -41,9 +41,34 @@ export default function Login() {
     }
 
     setError("");
-    console.log({ emailOrPhone, password });
 
-    navigate("/");
+    const userData = {
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+    };
+
+    try {
+      const response = await axios.post(
+        "http://localhost:7000/login",
+        userData
+      );
+
+      if (response.status === 200) {
+        console.log("User Login successfull");
+        emailRef.current.value = "";
+        passwordRef.current.value = "";
+
+        navigate("/");
+      } else {
+        setError("Failed to register.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setError(
+        error.response?.data?.message ||
+          "An error occurred. Please try again later."
+      );
+    }
   };
 
   return (
@@ -55,9 +80,9 @@ export default function Login() {
           <form onSubmit={handleSubmit}>
             <input
               type="text"
-              id="email-or-phone"
+              id="email"
               placeholder="Enter Email or Phone Number"
-              ref={emailOrPhoneRef}
+              ref={emailRef}
               required
             />
             <input

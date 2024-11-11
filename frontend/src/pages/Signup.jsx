@@ -1,8 +1,10 @@
 import React, { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import "../css/LoginSignup.css";
 
 export default function Signup() {
+  const userNameRef = useRef(null);
   const firstNameRef = useRef(null);
   const lastNameRef = useRef(null);
   const emailRef = useRef(null);
@@ -11,15 +13,16 @@ export default function Signup() {
   const passwordRef = useRef(null);
 
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const validateEmail = (email) => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailPattern.test(email);
   };
 
-  const validatePhoneNumber = (phoneNumber) => {
+  const validatePhoneNumber = (phonenumber) => {
     const phonePattern = /^[0-9]{10}$/;
-    return phonePattern.test(phoneNumber);
+    return phonePattern.test(phonenumber);
   };
 
   const validatePassword = (password) => {
@@ -27,11 +30,11 @@ export default function Signup() {
     return password.length >= minLength;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const email = emailRef.current.value.trim();
-    const phoneNumber = phoneNumberRef.current.value.trim();
+    const phonenumber = phoneNumberRef.current.value.trim();
     const password = passwordRef.current.value.trim();
 
     if (!validateEmail(email)) {
@@ -39,7 +42,7 @@ export default function Signup() {
       return;
     }
 
-    if (!validatePhoneNumber(phoneNumber)) {
+    if (!validatePhoneNumber(phonenumber)) {
       setError("Please enter a valid 10-digit phone number.");
       return;
     }
@@ -50,14 +53,40 @@ export default function Signup() {
     }
 
     setError("");
-    console.log({
-      firstName: firstNameRef.current.value,
-      lastName: lastNameRef.current.value,
+    const userData = {
+      username: userNameRef.current.value,
+      firstname: firstNameRef.current.value,
+      lastname: lastNameRef.current.value,
       email,
       address: addressRef.current.value,
-      phoneNumber,
+      phonenumber,
       password,
-    });
+    };
+
+    try {
+      const response = await axios.post("http://localhost:7000/save", userData);
+
+      if (response.status === 200) {
+        console.log("User registered successfully");
+        userNameRef.current.value = "";
+        firstNameRef.current.value = "";
+        lastNameRef.current.value = "";
+        emailRef.current.value = "";
+        addressRef.current.value = "";
+        phoneNumberRef.current.value = "";
+        passwordRef.current.value = "";
+
+        navigate("/login");
+      } else {
+        setError("Failed to register.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setError(
+        error.response?.data?.message ||
+          "An error occurred. Please try again later."
+      );
+    }
   };
 
   return (
@@ -70,13 +99,19 @@ export default function Signup() {
         <form onSubmit={handleSubmit}>
           <input
             type="text"
-            placeholder="First name"
+            placeholder="UserName"
+            ref={userNameRef}
+            required
+          />
+          <input
+            type="text"
+            placeholder="First Name"
             ref={firstNameRef}
             required
           />
           <input
             type="text"
-            placeholder="Last name"
+            placeholder="Last Name"
             ref={lastNameRef}
             required
           />
