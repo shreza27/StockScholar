@@ -10,10 +10,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /* Distribute items vertically with space in between */
     align-items: center;
     height: 100%;
-    /* Ensure the content stretches to fill the container */
     padding: 20px;
 }
 
@@ -22,33 +20,23 @@
     margin-bottom: 20px;
     color: white;
     flex-grow: 0;
-    /* Prevent this section from taking too much space */
 }
 
 .chartdisplay {
     width: 100%;
-    /* Make the chart take up the full width */
     height: 50%;
-    /* Make the chart take up 50% of the available height */
     max-width: 800px;
-    /* Optional: Limit the maximum width */
     margin: 20px 0;
-    /* Adds space around the chart */
     flex-grow: 1;
-    /* Allow the chart to grow and take up available space */
 }
 
 .clock1 {
     margin-top: 40px;
     width: 100%;
-    /* Ensure the clock takes full width */
     text-align: center;
-    /* Center the clock content */
     flex-grow: 0;
-    /* Prevent clock from taking too much space */
 }
 
-/* Watchlist styles remain the same */
 .watchlist {
     grid-column: 2/3;
     background-color: black;

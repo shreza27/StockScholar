@@ -22,7 +22,6 @@ ChartJS.register(
 );
 
 export default function StockChart({ stockData }) {
-  // Check if stockData is provided and properly structured
   if (!stockData || !stockData.values || stockData.values.length === 0) {
     return <div>No stock data available</div>;
   }

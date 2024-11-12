@@ -3,10 +3,10 @@ import StockChart from "../components/StockChart";
 import Clock from "../components/Clock";
 import "../css/Dashboard.css";
 
-const Stock_key = ""; //import.meta.env.VITE_DASHSTOCKNAPI_KEY;
+const Stock_key = ""; // import.meta.env.VITE_DASHSTOCKNAPI_KEY;
 
 export default function Dashboard() {
-  const userName = "John Doe";
+  const userName = "Shaneel";
   const [symbol, setSymbol] = useState("");
   const [stockData, setStockData] = useState(null);
   const [error, setError] = useState(null);

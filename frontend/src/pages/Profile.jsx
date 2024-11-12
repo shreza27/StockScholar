@@ -12,7 +12,6 @@ export default function Profile() {
     city: "",
     state: "",
     phone: "",
-    email: "",
   });
 
   const handleChange = (e) => {
@@ -132,16 +131,6 @@ export default function Profile() {
             required
           />
         </div>
-      </div>
-      <div className="form-group">
-        <label>Email</label>
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
       </div>
       <button type="submit" className="update-button">
         Update Profile
