@@ -134,7 +134,7 @@ export default function Signup() {
           <button type="submit" className="signup-button">
             Register
           </button>
-          <Link to="/login" className="login-link">
+          <Link to="/" className="login-link">
             Already have an account?
           </Link>
         </form>

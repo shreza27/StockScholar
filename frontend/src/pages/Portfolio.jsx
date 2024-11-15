@@ -14,10 +14,10 @@ export default function Portfolio() {
 
   const [assetName, setAssetName] = useState("");
   const [assetPrice, setAssetPrice] = useState("");
-  const [asset24hChange, setAsset24hChange] = useState("");
-  const [assetHoldings, setAssetHoldings] = useState("");
-  const [assetAvgBuyPrice, setAssetAvgBuyPrice] = useState("");
-  const [assetProfitLoss, setAssetProfitLoss] = useState("");
+  const [assetQuantity, setAssetQuantity] = useState("");
+  const [assetCurrentPrice, setAssetCurrentPrice] = useState("");
+  const [assetGainPercent, setAssetGainPercent] = useState("");
+  const [assetValue, setAssetValue] = useState("");
 
   const handleAddPortfolioClick = () => {
     setIsPortfolioModalOpen(true);
@@ -45,10 +45,10 @@ export default function Portfolio() {
     setIsAssetModalOpen(false);
     setAssetName("");
     setAssetPrice("");
-    setAsset24hChange("");
-    setAssetHoldings("");
-    setAssetAvgBuyPrice("");
-    setAssetProfitLoss("");
+    setAssetQuantity("");
+    setAssetCurrentPrice("");
+    setAssetGainPercent("");
+    setAssetValue("");
   };
 
   const handlePortfolioSubmit = () => {
@@ -74,20 +74,20 @@ export default function Portfolio() {
   const handleAssetSubmit = () => {
     const newAsset = {
       name: assetName,
-      price: assetPrice,
-      change: asset24hChange,
-      holdings: assetHoldings,
-      avgBuyPrice: assetAvgBuyPrice,
-      profitLoss: assetProfitLoss,
+      purchasePrice: assetPrice,
+      quantity: assetQuantity,
+      currentPrice: assetCurrentPrice,
+      gainPercent: assetGainPercent,
+      value: assetValue,
     };
 
     setAssets([...assets, newAsset]);
 
-    const expenseAmount = parseFloat(assetHoldings) * parseFloat(assetPrice);
+    const expenseAmount = parseFloat(assetQuantity) * parseFloat(assetPrice);
     setExpenseHistory([
       ...expenseHistory,
       {
-        description: `Bought ${assetHoldings} of ${assetName}`,
+        description: `Bought ${assetQuantity} of ${assetName}`,
         amount: expenseAmount,
       },
     ]);
@@ -124,7 +124,6 @@ export default function Portfolio() {
         <div className="balance-section">
           <h2>Current Balance</h2>
           <h3 className="balance-amount">${budget}</h3>
-          <p className="balance-change">$52,384.00</p>
           <button className="buy-stocks" onClick={handleAddAssetClick}>
             Invest Stocks
           </button>
@@ -138,26 +137,24 @@ export default function Portfolio() {
           <table className="assets-table">
             <thead>
               <tr>
-                <th>#</th>
                 <th>Name</th>
-                <th>Price</th>
-                <th>24H%</th>
-                <th>Holdings</th>
-                <th>Avg. Buy Price</th>
-                <th>Profit/Loss</th>
+                <th>Purchase Price</th>
+                <th>Quantity</th>
+                <th>Current Price</th>
+                <th>Gain %</th>
+                <th>Value</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {assets.map((asset, index) => (
                 <tr key={index}>
-                  <td>{index + 1}</td>
                   <td>{asset.name}</td>
-                  <td>{asset.price}</td>
-                  <td>{asset.change}</td>
-                  <td>{asset.holdings}</td>
-                  <td>{asset.avgBuyPrice}</td>
-                  <td>{asset.profitLoss}</td>
+                  <td>{asset.purchasePrice}</td>
+                  <td>{asset.quantity}</td>
+                  <td>{asset.currentPrice}</td>
+                  <td>{asset.gainPercent}</td>
+                  <td>{asset.value}</td>
                   <td>
                     <button className="delete-asset">X</button>
                   </td>
@@ -240,34 +237,17 @@ export default function Portfolio() {
             />
             <input
               type="number"
-              placeholder="Price"
+              placeholder="Quantity"
+              value={assetQuantity}
+              onChange={(e) => setAssetQuantity(e.target.value)}
+            />
+            <input
+              type="number"
+              placeholder="Purchase Price"
               value={assetPrice}
               onChange={(e) => setAssetPrice(e.target.value)}
             />
-            <input
-              type="number"
-              placeholder="24H Change (%)"
-              value={asset24hChange}
-              onChange={(e) => setAsset24hChange(e.target.value)}
-            />
-            <input
-              type="number"
-              placeholder="Holdings"
-              value={assetHoldings}
-              onChange={(e) => setAssetHoldings(e.target.value)}
-            />
-            <input
-              type="number"
-              placeholder="Avg. Buy Price"
-              value={assetAvgBuyPrice}
-              onChange={(e) => setAssetAvgBuyPrice(e.target.value)}
-            />
-            <input
-              type="number"
-              placeholder="Profit/Loss"
-              value={assetProfitLoss}
-              onChange={(e) => setAssetProfitLoss(e.target.value)}
-            />
+
             <button className="submit-btn" onClick={handleAssetSubmit}>
               Submit
             </button>

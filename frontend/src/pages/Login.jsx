@@ -58,7 +58,7 @@ export default function Login() {
         emailRef.current.value = "";
         passwordRef.current.value = "";
 
-        navigate("/");
+        navigate("/dashboard");
       } else {
         setError("Failed to register.");
       }
@@ -96,9 +96,6 @@ export default function Login() {
             <button type="submit" className="signup-button">
               Log in
             </button>
-            <Link to="/forgot-password" className="forgotten-account">
-              Forgotten account?
-            </Link>
             <Link to="/signup" className="signup-link">
               Sign up for StockQuest
             </Link>

@@ -10,7 +10,7 @@ export default function Header() {
           </Link>
           <ul className="nav mx-auto mb-0">
             <li>
-              <Link to="/" className="nav-link px-3 text-white">
+              <Link to="/dashboard" className="nav-link px-3 text-white">
                 Dashboard
               </Link>
             </li>
@@ -57,15 +57,7 @@ export default function Header() {
               aria-labelledby="dropdownUser1"
             >
               <li>
-                <Link className="dropdown-item" to="/profile">
-                  Profile
-                </Link>
-              </li>
-              <li>
-                <hr className="dropdown-divider" />
-              </li>
-              <li>
-                <Link className="dropdown-item" to="/sign-out">
+                <Link className="dropdown-item" to="/">
                   Sign out
                 </Link>
               </li>

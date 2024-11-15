@@ -1,17 +1,14 @@
 package com.stockquest.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Register {
-	
-	
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String username;
     private String password;
     private String email;
@@ -20,13 +17,12 @@ public class Register {
     private String address;
     private String phonenumber;
 
-    public Register() {
-        super();
-    }
-    
+
+
+    public Register() {}
+
     public Register(int id, String username, String password, String email, String firstname, String lastname,
                     String address, String phonenumber) {
-        super();
         this.id = id;
         this.username = username;
         this.password = password;
@@ -37,6 +33,7 @@ public class Register {
         this.phonenumber = phonenumber;
     }
 
+    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -100,4 +97,5 @@ public class Register {
     public void setPhonenumber(String phonenumber) {
         this.phonenumber = phonenumber;
     }
+
 }

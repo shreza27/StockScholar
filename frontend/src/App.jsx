@@ -5,7 +5,6 @@ import Signup from "./pages/Signup";
 import MainPage from "./pages/MainPage";
 import Dashboard from "./pages/Dashboard";
 import "./App.css";
-import Profile from "./pages/Profile";
 import Portfolio from "./pages/Portfolio";
 import Chat from "./pages/Chat";
 import Learn from "./pages/Learn";
@@ -14,14 +13,13 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<MainPage />}>
-        <Route index element={<Dashboard />} />
+        <Route path="dashboard" element={<Dashboard />} />
         <Route path="portfolio" element={<Portfolio />} />
         <Route path="market" element={<Market />} />
         <Route path="chat" element={<Chat />} />
         <Route path="learn" element={<Learn />} />
-        <Route path="profile" element={<Profile />} />
       </Route>
-      <Route path="/login" element={<Login />} />
+      <Route index element={<Login />} />
       <Route path="/signup" element={<Signup />} />
     </Routes>
   );
