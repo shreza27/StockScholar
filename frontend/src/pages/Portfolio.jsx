@@ -71,28 +71,60 @@ export default function Portfolio() {
     }
   };
 
-  const handleAssetSubmit = () => {
-    const newAsset = {
-      name: assetName,
-      purchasePrice: assetPrice,
-      quantity: assetQuantity,
-      currentPrice: assetCurrentPrice,
-      gainPercent: assetGainPercent,
-      value: assetValue,
-    };
+  const handleAssetSubmit = async () => {
+    try {
+      const Stock_key = ""; //import.meta.env.VITE_DASHSTOCKNAPI_KEY;
+      const apiUrl = `https://api.twelvedata.com/time_series?symbol=${assetName}&interval=1day&outputsize=7&apikey=${Stock_key}`;
 
-    setAssets([...assets, newAsset]);
+      const response = await fetch(apiUrl);
+      const stockData = await response.json();
 
-    const expenseAmount = parseFloat(assetQuantity) * parseFloat(assetPrice);
-    setExpenseHistory([
-      ...expenseHistory,
-      {
-        description: `Bought ${assetQuantity} of ${assetName}`,
-        amount: expenseAmount,
-      },
-    ]);
+      if (stockData && stockData.values && stockData.values[0]) {
+        const currentPrice = parseFloat(stockData.values[0].close);
+        const purchasePrice = parseFloat(assetPrice);
+        const quantity = parseFloat(assetQuantity);
+        const expenseAmount = purchasePrice * quantity;
 
-    handleAssetModalClose();
+        if (budget >= expenseAmount) {
+          const gainPercent = (
+            ((currentPrice - purchasePrice) / purchasePrice) *
+            100
+          ).toFixed(2);
+          const value = (currentPrice * quantity).toFixed(2);
+
+          const newAsset = {
+            name: assetName,
+            purchasePrice: purchasePrice.toFixed(2),
+            quantity: quantity.toFixed(2),
+            currentPrice: currentPrice.toFixed(2),
+            gainPercent: `${gainPercent}%`,
+            value: `${value}`,
+          };
+
+          setAssets([...assets, newAsset]);
+
+          setBudget((prevBudget) => prevBudget - expenseAmount);
+
+          setExpenseHistory([
+            ...expenseHistory,
+            {
+              description: `Bought ${quantity} of ${assetName}`,
+              amount: expenseAmount,
+            },
+          ]);
+
+          handleAssetModalClose();
+        } else {
+          alert("Insufficient budget to complete the purchase.");
+        }
+      } else {
+        console.error("Invalid response from stock API.");
+        alert("Unable to fetch stock data. Please check the asset name.");
+      }
+    } catch (error) {
+      console.error("Error fetching stock data:", error);
+      alert("An error occurred while fetching stock data.");
+    }
   };
 
   return (

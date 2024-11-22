@@ -6,7 +6,6 @@ import "../css/Dashboard.css";
 const Stock_key = ""; // import.meta.env.VITE_DASHSTOCKNAPI_KEY;
 
 export default function Dashboard() {
-  const userName = "Shaneel";
   const [symbol, setSymbol] = useState("");
   const [stockData, setStockData] = useState(null);
   const [error, setError] = useState(null);
@@ -37,7 +36,7 @@ export default function Dashboard() {
     <div className="dashboard">
       <div className="timedisplay">
         <div className="welcome-message">
-          <h1>Welcome back, {userName}!</h1>
+          <h1>Welcome back!</h1>
           <p>
             Here’s a quick overview of your stock portfolio performance today.
           </p>
