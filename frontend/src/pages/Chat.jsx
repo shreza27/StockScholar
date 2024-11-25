@@ -4,7 +4,7 @@ import ReactMarkdown from "react-markdown";
 import "../css/Chat.css";
 
 export default function Chat() {
-  const APIKEY = ""; // import.meta.env.VITE_GEMINIAPI_KEY;
+  const APIKEY = import.meta.env.VITE_GEMINIAPI_KEY;
   const [chatHistory, setChatHistory] = useState([]);
   const [question, setQuestion] = useState("");
   const [generatingAnswer, setGeneratingAnswer] = useState(false);
