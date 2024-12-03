@@ -1,70 +1,85 @@
 import React from "react";
 import { Link } from "react-router-dom";
-export default function Header() {
-  return (
-    <header className="headings p-3 text-white">
-      <div className="container">
-        <div className="d-flex justify-content-between align-items-center">
-          <Link to="/" className="titleheader">
-            StockQuest
-          </Link>
-          <ul className="nav mx-auto mb-0">
-            <li>
-              <Link to="/dashboard" className="nav-link px-3 text-white">
-                Dashboard
-              </Link>
-            </li>
-            <li>
-              <Link to="/portfolio" className="nav-link px-3 text-white">
-                Portfolio
-              </Link>
-            </li>
-            <li>
-              <Link to="/market" className="nav-link px-3 text-white">
-                Market
-              </Link>
-            </li>
-            <li>
-              <Link to="/chat" className="nav-link px-3 text-white">
-                Chat
-              </Link>
-            </li>
-            <li>
-              <Link to="/learn" className="nav-link px-3 text-white">
-                Learn
-              </Link>
-            </li>
-          </ul>
 
-          <div className="dropdown text-end">
-            <a
-              href="#"
-              className="d-block link-dark text-decoration-none dropdown-toggle"
-              id="dropdownUser1"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjSyBbjTDt-hfhjuJsMP82aeeML1nZ7a0qeQ&s"
-                alt="mdo"
-                width="32"
-                height="32"
-                className="rounded-circle"
-              />
-            </a>
-            <ul
-              className="dropdown-menu text-small"
-              aria-labelledby="dropdownUser1"
-            >
-              <li>
-                <Link className="dropdown-item" to="/">
-                  Sign out
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
+export default function Sidebar() {
+  const sidebarStyle = {
+    display: "flex",
+    flexDirection: "column",
+    width: "250px",
+    height: "100vh",
+    backgroundColor: "#4b0082", // Indigo background
+    color: "white",
+    padding: "20px",
+    position: "fixed", // Sticks the sidebar to the side
+  };
+
+  const titleStyle = {
+    fontSize: "24px",
+    fontWeight: "bold",
+    marginBottom: "20px",
+    textAlign: "center",
+  };
+
+  const navStyle = {
+    listStyleType: "none",
+    padding: 0,
+    flexGrow: 1,
+  };
+
+  const navItemStyle = {
+    marginBottom: "15px",
+  };
+
+  const navLinkStyle = {
+    color: "white",
+    textDecoration: "none",
+    fontSize: "18px",
+  };
+
+  const footerStyle = {
+    marginTop: "auto",
+    textAlign: "center",
+  };
+
+  return (
+    <aside style={sidebarStyle}>
+      <div style={titleStyle}>
+        <Link to="/" style={{ ...navLinkStyle, fontSize: "22px" }}>
+          StockScholar
+        </Link>
       </div>
-    </header>
+      <ul style={navStyle}>
+        <li style={navItemStyle}>
+          <Link to="/dashboard" style={navLinkStyle}>
+            Dashboard
+          </Link>
+        </li>
+        <li style={navItemStyle}>
+          <Link to="/portfolio" style={navLinkStyle}>
+            Portfolio Insights
+          </Link>
+        </li>
+        <li style={navItemStyle}>
+          <Link to="/market" style={navLinkStyle}>
+            Stock Exchange
+          </Link>
+        </li>
+        <li style={navItemStyle}>
+          <Link to="/chat" style={navLinkStyle}>
+            Chat
+          </Link>
+        </li>
+        <li style={navItemStyle}>
+          <Link to="/learn" style={navLinkStyle}>
+            Resources
+          </Link>
+        </li>
+      </ul>
+      <div style={footerStyle}>
+        <Link to="/" style={navLinkStyle}>
+          Log out
+        </Link>
+      </div>
+    </aside>
   );
 }

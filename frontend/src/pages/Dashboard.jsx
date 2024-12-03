@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import StockChart from "../components/StockChart";
-import Clock from "../components/Clock";
 import "../css/Dashboard.css";
 
 const Stock_key = import.meta.env.VITE_DASHSTOCKNAPI_KEY;
@@ -34,29 +33,11 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard">
-      <div className="timedisplay">
-        <div className="welcome-message">
-          <h1>Welcome back!</h1>
-          <p>
-            Here’s a quick overview of your stock portfolio performance today.
-          </p>
-          <p>
-            The stock market is seeing positive growth today. Keep an eye on key
-            stocks.
-          </p>
-        </div>
-        <div className="chartdisplay">
-          <StockChart stockData={stockData} />
-        </div>
-        <div className="clock1">
-          <h2 className="text-white">Major Market Time Zones</h2>
-          <Clock />
-        </div>
+      <div className="chartdisplay">
+        <StockChart stockData={stockData} />
       </div>
-
       <div className="watchlist">
         <h2 className="watchlist-heading text-white">Watchlist</h2>
-
         <div className="add-stock text-white">
           <input
             type="text"
@@ -69,9 +50,7 @@ export default function Dashboard() {
             Add
           </button>
         </div>
-
         {error && <p className="text-red">{error}</p>}
-
         <table className="watchlist-table">
           <thead>
             <tr>

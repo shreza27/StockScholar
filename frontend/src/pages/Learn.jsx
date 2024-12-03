@@ -53,19 +53,13 @@ export default function Learn() {
       thumbnail:
         "https://www.sharekhan.com/MediaGalary/image/What-is-Online-Trading_H-202403042042557895107.png",
     },
-    {
-      title: "10 Great Secrets: How to Win the Stock Market Game?",
-      link: "https://www.holisticinvestment.in/7-secrets-of-winning/",
-      thumbnail:
-        "https://www.holisticinvestment.in/wp-content/uploads/2015/07/10-Great-Secrets-How-to-Win-the-Stock-Market-Game-1.png",
-    },
   ];
 
   return (
     <div className="learn">
-      <h2 className="youtubeheader">
+      {/* <h2 className="youtubeheader">
         Complete Guide to Basics of Stock Market
-      </h2>
+      </h2> */}
       <div className="youtube-scroll">
         {youtubeVideos.map((video, index) => (
           <a
@@ -87,7 +81,7 @@ export default function Learn() {
         ))}
       </div>
 
-      <h2 className="article-header">Articles for Beginners</h2>
+      {/* <h2 className="article-header">Articles for Beginners</h2> */}
       <div className="article-scroll">
         {articles.map((article, index) => (
           <a

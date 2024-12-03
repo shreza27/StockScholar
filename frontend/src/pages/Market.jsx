@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../css/Market.css";
 import Card from "../components/Card";
-import image1 from "../assets/3d-rendering-financial-neon-bull.jpg";
-import image2 from "../assets/stock-trading-workplace-background.jpg";
 
 const topStocks = [
   "AAPL",
@@ -69,18 +67,14 @@ export default function Market() {
   return (
     <>
       <div className="market1">
-        <h1 className="quote">
-          "The stock market is filled with individuals who know the price of
-          everything but the value of nothing." – Philip Fisher
-        </h1>
         <div id="carouselExampleFade" className="carousel slide carousel-fade">
           <div className="carousel-inner">
-            <div className="carousel-item active">
+            {/* <div className="carousel-item active">
               <img src={image1} className="d-block w-100" alt="Slide 1" />
-            </div>
-            <div className="carousel-item">
+            </div> */}
+            {/* <div className="carousel-item">
               <img src={image2} className="d-block w-100" alt="Slide 2" />
-            </div>
+            </div> */}
           </div>
           <button
             className="carousel-control-prev"
@@ -142,7 +136,7 @@ export default function Market() {
             </tbody>
           </table>
         </div>
-        <div className="d3">
+        {/* <div className="d3">
           <h3>Top Trending News</h3>
           {newsData.slice(0, 5).map((news, index) => (
             <Card
@@ -152,7 +146,7 @@ export default function Market() {
               image={news.image_url}
             />
           ))}
-        </div>
+        </div> */}
       </div>
     </>
   );

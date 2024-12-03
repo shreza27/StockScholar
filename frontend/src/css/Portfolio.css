@@ -1,154 +1,119 @@
 .portfolio-page {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 100px;
-    max-width: 100%;
-    margin: auto;
-    padding: 20px;
-    color: #f0e9e9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #1a1a2e;
+    color: #eaeaea;
+    font-family: 'Arial', sans-serif;
 }
 
 .left-column {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    max-width: 800px;
+    background-color: #0f3460;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
 }
 
 .portfolio-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
+    margin-bottom: 20px;
+    color: #f0f0f0;
 }
 
-.portfolio-list {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.portfolio-header h1 {
+    font-size: 1.8rem;
 }
 
-.portfolio-item {
-    font-family: 'Arima', serif;
-    font-size: 1em;
-    color: transparent;
-    background-image: linear-gradient(45deg, #b8a14f, #8f6f3f, #706040);
-    background-clip: text;
-    -webkit-background-clip: text;
-    font-weight: 700;
-    text-align: center;
-    margin: 40px 20px;
-    padding: 20px;
-    line-height: 1.4;
-    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
-    border-radius: 10px;
-    border-radius: 10px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    width: 250px;
-}
-
-.portfolio-actions button {
-    margin-right: 20px;
-}
-
-.add-portfolio {
-    font-size: 24px;
+.portfolio-list .add-portfolio {
+    background-color: #e94560;
+    color: #fff;
+    font-size: 1.2rem;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.portfolio-list .add-portfolio:hover {
+    background-color: #ff5979;
 }
 
 .balance-section {
+    margin-top: 20px;
     text-align: center;
 }
 
 .balance-amount {
-    font-size: 2em;
-    color: #1f8b24;
-}
-
-.balance-change {
-    color: #28a745;
+    font-size: 2.5rem;
+    color: #4cd137;
 }
 
 .buy-stocks {
     margin-top: 10px;
-    padding: 10px 20px;
-    background-color: #8f6f3f;
-    color: white;
+    padding: 12px 24px;
+    background-color: #16213e;
+    color: #eaeaea;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.buy-stocks:hover {
+    background-color: #1b264f;
 }
 
 .assets-section {
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .assets-table {
     width: 100%;
     border-collapse: collapse;
-}
-
-.assets-table th,
-.assets-table td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
     text-align: center;
-}
-
-.asset-name {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.price-change.negative {
-    color: red;
-}
-
-.profit {
-    color: #28a745;
-}
-
-
-
-.right-column {
-
-    background-color: #000000;
-    padding: 20px;
+    margin-top: 20px;
     border-radius: 8px;
-    border: 1px solid #ddd;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.right-column h2 {
-    margin-bottom: 10px;
+.assets-table th {
+    background-color: #16213e;
+    color: #eaeaea;
+    font-weight: bold;
+    padding: 14px 20px;
+    border-bottom: 1px solid #0f3460;
 }
 
-.expense-history {
-    list-style-type: none;
-    margin-left: 20px;
+.assets-table td {
+    padding: 12px 16px;
+    background-color: #1a1a2e;
+    color: #f0f0f0;
+    border-bottom: 1px solid #2c2c54;
 }
 
-.expense-history li {
-    padding: 5px 0;
-    border-bottom: 1px solid #ddd;
+.assets-table tr:hover {
+    background-color: #273c75;
 }
 
-.icon {
-    margin-right: 10px;
+.delete-asset {
+    background-color: #e94560;
+    color: #fff;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.icon:hover {
-    color: #d9534f;
-}
-
-.icon.edit {
-    color: #5bc0de;
-    margin-right: 50px;
-}
-
-.icon.delete {
-    color: #d9534f;
+.delete-asset:hover {
+    background-color: #ff5979;
 }
 
 .modal {
@@ -157,19 +122,20 @@
     left: 0;
     width: 100%;
     height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
     display: flex;
-    align-items: center;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
 }
 
 .modal-content {
+    background-color: #16213e;
+    color: #f0f0f0;
     padding: 20px;
     border-radius: 8px;
-    width: 300px;
+    width: 400px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
     text-align: center;
-    background-image: linear-gradient(45deg, #4a3d0d, #a87529, #706040);
-
 }
 
 .modal-content h2 {
@@ -177,20 +143,28 @@
 }
 
 .modal-content input {
-    width: 100%;
-    padding: 8px;
+    width: 90%;
+    padding: 10px;
     margin: 10px 0;
-    background-color: #000000;
+    background-color: #0f3460;
+    border: 1px solid #273c75;
+    border-radius: 6px;
+    color: #eaeaea;
 }
 
 .submit-btn {
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: #8f6f3f;
-    color: white;
+    background-color: #4cd137;
+    color: #fff;
+    padding: 12px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
+    font-size: 1rem;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #44bd32;
 }
 
 .close-btn {
@@ -198,8 +172,8 @@
     top: 10px;
     right: 10px;
     background: none;
-    color: #b00000;
-    font-size: 30px;
+    color: #e94560;
+    font-size: 1.5rem;
     border: none;
     cursor: pointer;
 }

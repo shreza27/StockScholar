@@ -92,7 +92,7 @@ export default function Signup() {
   return (
     <div className="login-signup-page">
       <div className="signup-container">
-        <h1>StockQuest</h1>
+        <h1>StockScholar</h1>
         <div className="signup-box">
           <h2>Create a New Account!</h2>
         </div>

@@ -38,7 +38,7 @@ export default function Chat() {
       });
 
       const aiResponse =
-        response["data"]["candidates"][0]["content"]["parts"][0]["text"];
+        response.data.candidates[0].content.parts[0].text;
       setChatHistory((prev) => [
         ...prev,
         { type: "answer", content: aiResponse },
@@ -61,30 +61,27 @@ export default function Chat() {
       <div className="chat-history scrollbar-thin" ref={chatContainerRef}>
         {chatHistory.length === 0 ? (
           <div className="h-full flex flex-col items-center justify-center text-center p-6">
-            <div className="bg-gray-1000 rounded-xl p-8 max-w-2xl">
+            <div className="welcome-message rounded-xl p-8 max-w-2xl">
               <h2 className="welcomechat text-2xl font-bold mb-4">
-                Welcome to Stock Bot! 👋
+                Hi I'm StockScholar Bot! 👋
               </h2>
-              <p className="text-gray-300 mb-4">
-                I'm here to help you with anything you'd like to know. You can
-                ask me about:
-              </p>
+              <p className="text-white mb-4">Ask me anything!</p>
               <div className="chat1 grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
-                <div className="chatcard p-4">
-                  <span className="text-yellow-400">📈</span> Stock Prices
+                <div className="chatcard">
+                  <span>📈</span> Stock Prices
                 </div>
                 <div className="chatcard">
-                  <span className="text-yellow-400">💹</span> Market Trends
+                  <span>💹</span> Market Trends
                 </div>
                 <div className="chatcard">
-                  <span className="text-yellow-400">📊</span> Financial News
+                  <span>📊</span> Financial News
                 </div>
                 <div className="chatcard">
-                  <span className="text-yellow-400">💰</span> Investment Tips
+                  <span>💰</span> Investment Tips
                 </div>
               </div>
-              <p className="text-gray-400 mt-6 text-md">
-                Just type your question below and press Enter or click Send!
+              <p className="text-white mt-6 text-md">
+                Just type your question and click Send!
               </p>
             </div>
           </div>
@@ -100,8 +97,8 @@ export default function Chat() {
                 <div
                   className={`inline-block max-w-[80%] p-3 rounded-lg overflow-auto hide-scrollbar ${
                     chat.type === "question"
-                      ? "bg-blue-600 text-white rounded-br-none"
-                      : "bg-gray-700 text-gray-300 rounded-bl-none"
+                      ? "bg-blue-500 text-white rounded-br-none"
+                      : "bg-blue-800 text-white rounded-bl-none"
                   }`}
                 >
                   <ReactMarkdown className="overflow-auto hide-scrollbar">
@@ -114,7 +111,7 @@ export default function Chat() {
         )}
         {generatingAnswer && (
           <div className="text-left">
-            <div className="inline-block bg-gray-700 p-3 rounded-lg animate-pulse">
+            <div className="inline-block bg-blue-800 p-3 rounded-lg animate-pulse text-white">
               Thinking...
             </div>
           </div>
@@ -125,12 +122,12 @@ export default function Chat() {
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           placeholder="Type your question here..."
-          className="bg-gray-800 text-white p-2 rounded-lg"
+          className="text-area"
         />
         <button
           type="submit"
           disabled={generatingAnswer}
-          className={`text-white bg-gradient-to-r from-yellow-400 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ${
+          className={`submit-button ${
             generatingAnswer ? "opacity-50 cursor-not-allowed" : ""
           }`}
         >

@@ -131,7 +131,7 @@ export default function Portfolio() {
     <div className="portfolio-page">
       <div className="left-column">
         <div className="portfolio-header">
-          <h1>My Portfolios</h1>
+          <h1>Add Portfolio</h1>
           <div className="portfolio-list">
             {portfolios.map((portfolio, index) => (
               <div className="portfolio-item" key={index}>
@@ -197,7 +197,7 @@ export default function Portfolio() {
         </div>
       </div>
 
-      <div className="right-column">
+      {/* <div className="right-column">
         <h2>Expense History</h2>
         <ul className="expense-history">
           {expenseHistory.map((expense, index) => (
@@ -206,7 +206,7 @@ export default function Portfolio() {
             </li>
           ))}
         </ul>
-      </div>
+      </div> */}
 
       {isPortfolioModalOpen && (
         <div className="modal">

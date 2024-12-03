@@ -1,21 +1,18 @@
 .learn {
-    padding: 20px;
+    padding: 40px;
+    background-color: #07132b;
 }
 
 .youtubeheader,
 .article-header {
     text-align: center;
-    font-size: 24px;
-    color: #fff;
+    font-size: 28px;
+    font-weight: bold;
+    color: #1e3a8a; /* Deep blue */
     margin-bottom: 20px;
-    color: transparent;
-    background-image: linear-gradient(45deg, #c7ae54, #c68b32, #cc962a);
+    background-image: linear-gradient(45deg, #3b82f6, #1d4ed8, #2563eb);
     background-clip: text;
     -webkit-background-clip: text;
-}
-
-.article-header {
-    margin-top: 20px;
 }
 
 .youtube-scroll,
@@ -23,13 +20,11 @@
     display: flex;
     gap: 20px;
     overflow-x: auto;
+    padding-bottom: 20px;
     scroll-snap-type: x mandatory;
 }
 
-.youtube-scroll::-webkit-scrollbar {
-    display: none;
-}
-
+.youtube-scroll::-webkit-scrollbar,
 .article-scroll::-webkit-scrollbar {
     display: none;
 }
@@ -38,49 +33,53 @@
 .article-card-link {
     text-decoration: none;
     scroll-snap-align: start;
+    display: inline-block;
 }
 
 .video-card,
 .article-card {
-    gap: 20px;
-    width: 250px;
-    height: 250px;
-    border: 1px solid #1a150c;
+    width: 300px;
+    background-color: #ffffff;
     border-radius: 10px;
-    padding: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     text-align: center;
-    background-image: linear-gradient(45deg, #493a1c, #1e1702, #6b4c17);
-    color: transparent;
-    background-clip: border-box;
-    -webkit-background-clip: border-box;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease;
+    background-image: linear-gradient(45deg, #e0f2fe, #b5e0f5, #90cdf4);
     flex-shrink: 0;
 }
-
-
 
 .video-card:hover,
 .article-card:hover {
     transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
-.video-thumbnail {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-}
-
+.video-thumbnail,
 .article-thumbnail {
     width: 100%;
-    height: 70%;
-    margin-right: 10px;
+    height: 180px;
+    border-radius: 8px;
     object-fit: cover;
+    margin-bottom: 10px;
 }
 
 .video-card h3,
 .article-card h3 {
-    margin: 10px 0;
-    font-size: 16px;
-    color: #fff;
+    color: #1e40af;
+    font-size: 18px;
+    margin-top: 10px;
+    margin-bottom: 0;
 }
+
+.article-thumbnail {
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.article-card {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+

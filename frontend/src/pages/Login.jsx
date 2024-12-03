@@ -74,14 +74,14 @@ export default function Login() {
   return (
     <div className="login-signup-page">
       <div className="login-container">
-        <h1>StockQuest</h1>
+        <h1>StockScholar</h1>
         <div className="login-box">
-          <h2>Log in to StockQuest</h2>
+          <h2>Login</h2>
           <form onSubmit={handleSubmit}>
             <input
               type="text"
               id="email"
-              placeholder="Enter Email or Phone Number"
+              placeholder="Enter Email"
               ref={emailRef}
               required
             />
@@ -97,7 +97,7 @@ export default function Login() {
               Log in
             </button>
             <Link to="/signup" className="signup-link">
-              Sign up for StockQuest
+              Sign up
             </Link>
           </form>
         </div>
